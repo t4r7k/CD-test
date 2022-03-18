@@ -56,11 +56,12 @@ public class App {
                     sc.close();
 
                     sc = new Scanner(input2);
+                    sc.useDelimiter("[;\r\n]+");
 
                     int num1 = Integer.parseInt(sc.next().replaceAll("\\s",""));
                     int num2 = Integer.parseInt(sc.next().replaceAll("\\s",""));
 
-                    sc.close();;
+                    sc.close();
 
                     result = App.isMeanBetweenGivenNumbers(arr, num1, num2);
             } catch ( Exception e ) {
