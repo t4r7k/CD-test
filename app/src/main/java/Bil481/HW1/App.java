@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import spark.*;
 import spark.template.mustache.MustacheTemplateEngine;
 
@@ -16,6 +19,8 @@ import static spark.Spark.*;
 public class App {
 
     public static void main(String[] args) {
+
+        Logger logger = LogManager.getLogger();
 
         get("/", (req, res) -> "Hello user!");
 
@@ -28,24 +33,34 @@ public class App {
             new MustacheTemplateEngine());
 
         post("/compute", (rq, rs) -> {
+            Map<String, String> map = new HashMap<String,String>();
+            boolean result;
+
             String input1 = rq.queryParams("input1");
             Scanner sc = new Scanner(input1);
             sc.useDelimiter("[;\r\n]+");
             ArrayList<Integer> arr = new ArrayList<>();
-            while (sc.hasNext())
-                arr.add( Integer.parseInt(sc.next().replaceAll("\\s","")) );
-            sc.close();
+            try {
+                while (sc.hasNext())
+                    arr.add( Integer.parseInt(sc.next().replaceAll("\\s","")) );
+                
+                    sc.close();
 
-            String input2 = rq.queryParams("input2");
-            int num1 = Integer.parseInt(input2);
+                    String input2 = rq.queryParams("input2");
+                    int num1 = Integer.parseInt(input2);
 
-            String input3 = rq.queryParams("input3");
-            int num2 = Integer.parseInt(input3);
+                    String input3 = rq.queryParams("input3");
+                    int num2 = Integer.parseInt(input3);
 
-            boolean result = App.isMeanBetweenGivenNumbers(arr, num1, num2);
+                    result = App.isMeanBetweenGivenNumbers(arr, num1, num2);
+            } catch ( Exception e ) {
+                logger.error("User submitted invalid inputs");
+                map.put("result", " can not be computed because of invalid inputs.");
+                return new ModelAndView(map, "compute.mustache");
+            }
 
-            Map<String, Boolean> map = new HashMap<String,Boolean>();
-            map.put("result",result);
+            
+            map.put("result",""+result);
             return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
     }
