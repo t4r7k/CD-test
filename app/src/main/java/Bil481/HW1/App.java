@@ -11,6 +11,8 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static spark.Spark.port;
+
 import spark.*;
 import spark.template.mustache.MustacheTemplateEngine;
 
@@ -21,6 +23,7 @@ public class App {
     public static void main(String[] args) {
 
         Logger logger = LogManager.getLogger( App.class );
+        port(getHerokuAssignedPort());
 
         get("/", (req, res) -> "Hello user!");
 
@@ -66,6 +69,15 @@ public class App {
             return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
     }
+
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set
+    }
+
 
     public static boolean isMeanBetweenGivenNumbers(ArrayList<Integer> arr, Integer num1, Integer num2) {
         
