@@ -106,6 +106,6 @@ public class App {
 
         mean /= (float) arr.size();
 
-        return min < mean && mean < max;
+        return min <= mean && mean <= max;
     }
 }
