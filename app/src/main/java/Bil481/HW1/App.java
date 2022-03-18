@@ -37,25 +37,27 @@ public class App {
             boolean result;
 
             String input1 = rq.queryParams("input1");
+            String input2 = rq.queryParams("input2");
+
             Scanner sc = new Scanner(input1);
             sc.useDelimiter("[;\r\n]+");
             ArrayList<Integer> arr = new ArrayList<>();
             try {
                 while (sc.hasNext())
                     arr.add( Integer.parseInt(sc.next().replaceAll("\\s","")) );
-                
                     sc.close();
 
-                    String input2 = rq.queryParams("input2");
-                    int num1 = Integer.parseInt(input2);
+                    sc = new Scanner(input2);
 
-                    String input3 = rq.queryParams("input3");
-                    int num2 = Integer.parseInt(input3);
+                    int num1 = Integer.parseInt(sc.next().replaceAll("\\s",""));
+                    int num2 = Integer.parseInt(sc.next().replaceAll("\\s",""));
+
+                    sc.close();;
 
                     result = App.isMeanBetweenGivenNumbers(arr, num1, num2);
             } catch ( Exception e ) {
                 logger.error("User submitted invalid inputs");
-                map.put("result", " can not be computed because of invalid inputs.");
+                map.put("result", "can not be computed because of invalid inputs.");
                 return new ModelAndView(map, "compute.mustache");
             }
 
