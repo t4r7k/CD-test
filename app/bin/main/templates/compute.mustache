@@ -1,10 +1,15 @@
-<title>My application</title>
-<h1>Hello, World!</h1>
-Result is {{result}}
+<h2 style="text-align: center;"><span style="color: #ff0000;"><strong>Bil481-HW1</strong></span></h2>
+<hr />
+<p style="text-align: center;"><span style="color: #000000;">
+<strong>This sample website checks the boundries of given list's mean.</strong></span></p>
+<p style="text-align: center;"><span style="color: #000000;">
+<strong>To test it, please enter a list of numbers seperated by lines or ";". Then write two numbers to the other box. Website will calculate the mean of list and check if it's between given numbers.</strong></span></p>
+<p style="text-align: center;">To see the source code: 
+<a title="GitHub Repository" href="https://github.com/t4r7k/Bil481-HW1" target="_blank">GitHub Repository</a></p>
 
-<form action="compute" method="post">
-    <textarea name="input1" rows="10" cols="30"></textarea>
-    <textarea name="input2" rows="10" cols="30"></textarea>
-    <br>
-    <input type="submit">
+<hr /><form action="compute" method="post">
+<p style="text-align: center;"><strong>Result is {{result}}&nbsp;</strong></p>
+<p style="text-align: center;"><textarea cols="30" name="input1" rows="15" placeholder="Please enter the list of numbers here...">
+</textarea> &nbsp;<textarea cols="30" name="input2" rows="15" placeholder="Please enter two numbers"></textarea></p>
+<p style="text-align: center;"><br /><input type="submit" /></p>
 </form>
