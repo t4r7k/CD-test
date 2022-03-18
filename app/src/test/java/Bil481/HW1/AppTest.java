@@ -6,6 +6,43 @@ package Bil481.HW1;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class AppTest {
+import java.util.ArrayList;
+import java.util.Arrays;
 
+class AppTest {
+    @Test public void meanInRange() {
+        ArrayList<Integer> arr = new ArrayList<>(Arrays.asList(2, 4, 6, 6, 4, 2, 4, 5, 3));  // Mean = 4
+        Integer num1 = 3, num2 = 5;
+        assertTrue( App.isMeanBetweenGivenNumbers(arr, num1, num2) );
+    }
+
+    @Test public void meanNotInRange() {
+        ArrayList<Integer> arr = new ArrayList<>(Arrays.asList(3, 5, 7, 1 ,6, 10, 3 ,6)); // Mean = 5,215
+        Integer num1 = 6, num2 = 8;
+        assertFalse( App.isMeanBetweenGivenNumbers(arr, num1, num2) );
+    }
+
+    @Test public void arrayNull() {
+        ArrayList<Integer> arr = null;
+        Integer num1 = 1, num2 = 2;
+        assertFalse( App.isMeanBetweenGivenNumbers(arr, num1, num2) );
+    }
+
+    @Test public void arrayEmpty() {
+        ArrayList<Integer> arr = new ArrayList<>();
+        Integer num1 = 2, num2 = 5;
+        assertFalse( App.isMeanBetweenGivenNumbers(arr, num1, num2) );
+    }
+
+    @Test public void invalidRange() {
+        ArrayList<Integer> arr = new ArrayList<>(Arrays.asList(1,7,3,7,8,2,4,7,3));
+        Integer num1 = 3, num2 = 3;
+        assertFalse( App.isMeanBetweenGivenNumbers(arr, num1, num2) );
+    }
+
+    @Test public void numberNull() {
+        ArrayList<Integer> arr = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
+        Integer num1 = null, num2 = 5;
+        assertFalse( App.isMeanBetweenGivenNumbers(arr, num1, num2) );
+    }
 }
