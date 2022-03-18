@@ -3,12 +3,34 @@
  */
 package Bil481.HW1;
 
+import java.util.ArrayList;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+    }
+
+    public static boolean isMeanBetweenGivenNumbers(ArrayList<Integer> arr, Integer num1, Integer num2) {
+        
+        float mean = 0;
+
+        if ( arr == null || num1 == null || num2 == null )
+            return false;
+
+        if ( arr.size() == 0 )
+            return false;
+
+        Integer min = Math.min( num1, num2 );
+        Integer max = Math.max( num1, num2 );
+
+        if ( min == max )
+            return false;
+
+        for ( Integer num : arr )
+            mean += num;
+
+        mean /= (float) arr.size();
+
+        return min < mean && mean < max;
     }
 }
