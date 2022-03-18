@@ -25,7 +25,12 @@ public class App {
         Logger logger = LogManager.getLogger( App.class );
         port(getHerokuAssignedPort());
 
-        get("/", (req, res) -> "Hello user!");
+        get("/",
+            (rq, rs) -> {
+                Map<String, String> map = new HashMap<String, String>();
+                return new ModelAndView(map, "homepage.mustache");
+            },
+            new MustacheTemplateEngine());
 
         get("/compute",
             (rq, rs) -> {
