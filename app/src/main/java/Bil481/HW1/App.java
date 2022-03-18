@@ -4,10 +4,50 @@
 package Bil481.HW1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+import spark.*;
+import spark.template.mustache.MustacheTemplateEngine;
+
+import static spark.Spark.*;
 
 public class App {
 
     public static void main(String[] args) {
+
+        get("/", (req, res) -> "Hello user!");
+
+        get("/compute",
+            (rq, rs) -> {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("result", "not computed yet.");
+                return new ModelAndView(map, "compute.mustache");
+            },
+            new MustacheTemplateEngine());
+
+        post("/compute", (rq, rs) -> {
+            String input1 = rq.queryParams("input1");
+            Scanner sc = new Scanner(input1);
+            sc.useDelimiter("[;\r\n]+");
+            ArrayList<Integer> arr = new ArrayList<>();
+            while (sc.hasNext())
+                arr.add( Integer.parseInt(sc.next().replaceAll("\\s","")) );
+            sc.close();
+
+            String input2 = rq.queryParams("input2");
+            int num1 = Integer.parseInt(input2);
+
+            String input3 = rq.queryParams("input3");
+            int num2 = Integer.parseInt(input3);
+
+            boolean result = App.isMeanBetweenGivenNumbers(arr, num1, num2);
+
+            Map<String, Boolean> map = new HashMap<String,Boolean>();
+            map.put("result",result);
+            return new ModelAndView(map, "compute.mustache");
+        }, new MustacheTemplateEngine());
     }
 
     public static boolean isMeanBetweenGivenNumbers(ArrayList<Integer> arr, Integer num1, Integer num2) {
