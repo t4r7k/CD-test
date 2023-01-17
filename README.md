@@ -1,5 +1,5 @@
-# Bil481-HW1
-##### Bil481 homework to learn and test build automation, unit tests, continuous integration, and continuous deployment to a cloud service.
+# Test Project
+##### Project to learn and test build automation, unit tests, continuous integration, and continuous deployment to a cloud service.
 
 -
 
@@ -7,7 +7,7 @@
 
 -
     
-##### In this homework, website takes list of numbers and two other integers as input. It calculates the mean of the list and checks if it's between other given integers. It returns true if mean of list is between given numbers, otherwise returns false.
+##### In this website, website takes list of numbers and two other integers as input. It calculates the mean of the list and checks if it's between other given integers. It returns true if mean of list is between given numbers, otherwise returns false.
 
 - 
 
